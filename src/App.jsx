@@ -3,48 +3,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 
 import Navbar from "./components/Navbar/Navbar";
-import { useEffect, useState } from "react";
-import { preloadImages } from "./utils/preloadImage";
 
 function App() {
-  // Background images state
-  const [background, setBackground] = useState("/img/1.avif")
-
-  useEffect(() => {
-    // Preload images
-    const imageUrls = Array.from({ length: 9 }, (_, i) => `/img/${i + 1}.avif`);
-    preloadImages(imageUrls);
-    // console.log(imageUrls)
-  }, []);
-
-  // Function for setting a random background image
-  const theme = () => {
-    const bgImageIndex = Math.ceil(Math.random() * 9);
-    const bgImageUrl = `/img/${bgImageIndex}.avif`;
-
-    // Create a new Image object to preload the new background image
-    const img = new Image();
-    img.src = bgImageUrl;
-    img.onload = () => {
-      // Once the image is loaded, set the background state
-      setBackground(bgImageUrl);
-      // console.log(bgImageUrl)
-    };
-  };
 
   const style = {
-    backgroundImage: `url(${background})`
+    backgroundImage: `url(https://images.unsplash.com/photo-1673517707316-a652db509da4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/weather">
       <main style={style}>
-        <Navbar theme={theme}/>
+        <Navbar />
 
         <Routes>
           <Route index element={<Home />} />
-          {/* <Route path="forecast" element={<Forecast />} /> */}
-          {/* <Route path="*" element={<NoPage />} /> */}
         </Routes>
 
         <footer>
